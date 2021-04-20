@@ -6,6 +6,7 @@ import com.example.proyectomaja.servicie.ExpertService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 @ApiOperation(value = "Find all expert")
 public class ExpertController {
+    @Value("${message}")
+    private String messagetest;
     private final Logger log = LoggerFactory.getLogger(ExpertController.class);
     private final ExpertService expertService;
 
@@ -42,6 +45,7 @@ public class ExpertController {
     @GetMapping("/expertos")
     @ApiOperation("Encontrar todos los expertos")
     public List<Expert> findAllExpert(){
+        System.out.println(messagetest);
         log.debug("Rest request all Expert");
         return expertService.findAll();
     }
