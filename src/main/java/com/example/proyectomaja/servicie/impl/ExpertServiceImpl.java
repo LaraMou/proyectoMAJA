@@ -140,6 +140,13 @@ public class ExpertServiceImpl implements ExpertService {
         return experts;
     }
 
+    /**
+     * TODO UNA MANERA
+     * @param nombre
+     * @param pageNumber
+     * @param rowPerPage
+     * @return
+     */
     @Override
     public List<Expert> findByName(String nombre, int pageNumber, int rowPerPage) {
         Expert filter = new Expert();

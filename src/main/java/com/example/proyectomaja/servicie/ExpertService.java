@@ -7,6 +7,7 @@ import com.example.proyectomaja.exception.ResourceAlreadyExistsException;
 import com.example.proyectomaja.exception.ResourceNotFoundException;
 
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 

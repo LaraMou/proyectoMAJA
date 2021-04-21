@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +47,10 @@ public class ExpertDAOImpl  implements ExpertDAO {
         return Optional.empty();
     }
 
-    @Override
-    public List<Etiqueta> findEtiquetasByID(Long id) {
-        return manager.createQuery("select distinct e from Expert e join fetch e.etiquetas").getResultList();
-    }
+
+//
+//    @Override
+//    public List<Etiqueta> findEtiquetasByID(Long id) {
+//        return manager.createQuery("select distinct e from Expert e join fetch e.etiquetas").getResultList();
+//    }
 }
