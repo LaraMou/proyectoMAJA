@@ -42,7 +42,7 @@ public class EtiquetaServiceImpl implements EtiquetaService {
     @Override
     public List<Etiqueta> findAll() {
         log.debug("findAllEtiqueta");
-        return repository.findAll();
+        return etiquetaDao.findAllEtiquetas();
     }
 
     /**
