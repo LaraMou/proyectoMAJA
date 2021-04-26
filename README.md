@@ -1,4 +1,5 @@
 #PROYECTO FINAL MASTER JAVA.
 
+Este proyecto, no ha podido ser desplegado por diversos inconvenientes.
 
-#PONER LOS LINKS DE LOS SITES
+Se entrega en la siguiente url de repositorio.
