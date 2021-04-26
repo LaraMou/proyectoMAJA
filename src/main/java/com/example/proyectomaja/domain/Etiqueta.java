@@ -29,21 +29,21 @@ public class Etiqueta {
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
-    @JsonIgnore
+
     private Instant createdDate = Instant.now();
 
     @LastModifiedBy
     @Column(name = "last_modified_by", length = 50)
-    @JsonIgnore
+
     private String lastModifiedBy;
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
     @JsonIgnore
     private Instant lastModifiedDate = Instant.now();
-    @JsonIgnore
-    @ManyToMany(mappedBy = "etiquetas", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<Expert> experts = new ArrayList<>();
+    @JsonIgnoreProperties(value={"etiquetas", "hibernateLazyInitializer", "handler"}, allowSetters=true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Expert experto ;
 
     public Etiqueta() {
     }
@@ -89,36 +89,11 @@ public class Etiqueta {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public List<Expert> getExperts() {
-        return experts;
+    public Expert getExperto() {
+        return experto;
     }
 
-    public void setExperts(List<Expert> experts) {
-        this.experts = experts;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Etiqueta)) return false;
-//        Etiqueta etiqueta = (Etiqueta) o;
-//        return nombre.equals(etiqueta.nombre);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(nombre);
-//    }
-
-
-    @Override
-    public String toString() {
-        return "Etiqueta{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                ", lastModifiedDate=" + lastModifiedDate +
-                '}';
+    public void setExperto(Expert experto) {
+        this.experto = experto;
     }
 }

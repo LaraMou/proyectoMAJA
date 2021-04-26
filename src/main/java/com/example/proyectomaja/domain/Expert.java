@@ -2,6 +2,7 @@ package com.example.proyectomaja.domain;
 
 import com.example.proyectomaja.domain.validation.NifValidator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Type;
@@ -94,19 +95,20 @@ public class Expert implements Serializable {
     private Instant lastModifiedDate = Instant.now();
 
 
-    @ApiModelProperty("Entidad relacionada many to many etiquetas")
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "expert_etiqueta",
-            joinColumns = {@JoinColumn(name="expert_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name="etiqueta_id", referencedColumnName = "id")}
-    )
+    @JsonIgnoreProperties(value={"experto", "hibernateLazyInitializer", "handler"}, allowSetters=true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "experto", cascade = CascadeType.ALL)
     private List<Etiqueta> etiquetas = new ArrayList<>();
 
     /**
      * Constructor Empty
      */
     public Expert() {
+    }
+
+    public Expert(String nombre, Estado estado, List<Etiqueta> etiquetas) {
+        this.nombre = nombre;
+        this.estado = estado;
+        this.etiquetas = etiquetas;
     }
 
     public Long getId() {
@@ -302,52 +304,5 @@ public class Expert implements Serializable {
 
     public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
-    }
-
-//    /**
-//     * Method equals
-//     * @param o object to check equals
-//     * @return boolean to detect unique record
-//     */
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//        if (!(o instanceof Expert)) {
-//            return false;
-//        }
-//       // return id.equals(expert.id) && nombre.equals(expert.nombre);
-//        return id != null && id.equals(((Expert) o).id) && nombre.equals(((Expert) o).nombre);
-//
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, nombre);
-//    }
-
-
-    @Override
-    public String toString() {
-        return "Expert{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", nif='" + nif + '\'' +
-                ", estado=" + estado +
-                ", motivo='" + motivo + '\'' +
-                ", disponibilidad=" + disponibilidad +
-                ", modalidad='" + modalidad + '\'' +
-                ", autonomo=" + autonomo +
-                ", telefono='" + telefono + '\'' +
-                ", email='" + email + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", LinkedIn='" + LinkedIn + '\'' +
-                ", porcentaje=" + porcentaje +
-                ", precio=" + precio +
-                ", puntuacion=" + puntuacion +
-                ", origen='" + origen + '\'' +
-                ", observaciones='" + observaciones + '\'' +
-                '}';
     }
 }
