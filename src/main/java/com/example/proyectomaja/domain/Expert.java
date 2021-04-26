@@ -1,12 +1,12 @@
 package com.example.proyectomaja.domain;
 
+import com.example.proyectomaja.domain.validation.NifValidator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
@@ -15,14 +15,14 @@ import javax.persistence.*;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name="expertos")
-public class Expert {
+public class Expert implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,11 +55,13 @@ public class Expert {
     @NotNull
     @Column(name="contacto_telefono", nullable = false)
     private String telefono;
-     @Email
-     @Size(min = 5, max = 254)
-    @Column(name="contacto_email",length = 254, unique = true)
+    @Email
+    @Size(min = 5, max = 254)
+    //todo unique
+    @Column(name="contacto_email",length = 254)
     private String email;
     @Column(name="contacto_ciudad")
+    private String ciudad;
     private String direccion;
     @Column(name="contacto_linkedin")
     private String LinkedIn;
@@ -72,17 +74,10 @@ public class Expert {
 
     private Double puntuacion;
 
-    //    @Basic(fetch=FetchType.LAZY)
-//    @Lob @Column(name="foto")
-//    private byte[] foto;
-//    @Size(max = 256)
-//    @Column(name = "image_url", length = 256)
-//    private String imageUrl;
-//    @Basic(fetch=FetchType.LAZY)
-//    @Lob @Column(name="PIC")
-//    private byte[] cv;
+    private String imageUrl;
+    private String cv;
     private String origen;
-
+    @Column(length = 4000)
     private String observaciones;
 
     /**
@@ -100,19 +95,20 @@ public class Expert {
     private Instant lastModifiedDate = Instant.now();
 
 
-    @ApiModelProperty("Entidad relacionada many to many etiquetas")
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "expert_etiqueta",
-            joinColumns = {@JoinColumn(name="expert_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name="etiqueta_id", referencedColumnName = "id")}
-    )
+    @JsonIgnoreProperties(value={"experto", "hibernateLazyInitializer", "handler"}, allowSetters=true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "experto", cascade = CascadeType.ALL)
     private List<Etiqueta> etiquetas = new ArrayList<>();
 
     /**
      * Constructor Empty
      */
     public Expert() {
+    }
+
+    public Expert(String nombre, Estado estado, List<Etiqueta> etiquetas) {
+        this.nombre = nombre;
+        this.estado = estado;
+        this.etiquetas = etiquetas;
     }
 
     public Long getId() {
@@ -136,7 +132,14 @@ public class Expert {
     }
 
     public void setNif(String nif) {
-        this.nif = nif;
+        NifValidator nifValildator = new NifValidator(nif);
+        Boolean valido = nifValildator.NIF(nif);
+        if(valido==true){
+            this.nif = nif;
+        }else{
+            this.nif = "error";
+        }
+
     }
 
 
@@ -212,6 +215,16 @@ public class Expert {
         this.email = email;
     }
 
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+
+
     public String getDireccion() {
         return direccion;
     }
@@ -252,6 +265,22 @@ public class Expert {
         this.puntuacion = puntuacion;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
+    }
+
     public String getOrigen() {
         return origen;
     }
@@ -275,52 +304,5 @@ public class Expert {
 
     public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
-    }
-
-//    /**
-//     * Method equals
-//     * @param o object to check equals
-//     * @return boolean to detect unique record
-//     */
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//        if (!(o instanceof Expert)) {
-//            return false;
-//        }
-//       // return id.equals(expert.id) && nombre.equals(expert.nombre);
-//        return id != null && id.equals(((Expert) o).id) && nombre.equals(((Expert) o).nombre);
-//
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, nombre);
-//    }
-
-
-    @Override
-    public String toString() {
-        return "Expert{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", nif='" + nif + '\'' +
-                ", estado=" + estado +
-                ", motivo='" + motivo + '\'' +
-                ", disponibilidad=" + disponibilidad +
-                ", modalidad='" + modalidad + '\'' +
-                ", autonomo=" + autonomo +
-                ", telefono='" + telefono + '\'' +
-                ", email='" + email + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", LinkedIn='" + LinkedIn + '\'' +
-                ", porcentaje=" + porcentaje +
-                ", precio=" + precio +
-                ", puntuacion=" + puntuacion +
-                ", origen='" + origen + '\'' +
-                ", observaciones='" + observaciones + '\'' +
-                '}';
     }
 }
