@@ -29,23 +29,34 @@ public class Etiqueta {
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
-    @JsonIgnore
+
     private Instant createdDate = Instant.now();
+
+
+
 
     @LastModifiedBy
     @Column(name = "last_modified_by", length = 50)
-    @JsonIgnore
     private String lastModifiedBy;
+
+
+
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
-    @JsonIgnore
     private Instant lastModifiedDate = Instant.now();
-    @JsonIgnore
+
     @ManyToMany(mappedBy = "etiquetas", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Expert> experts = new ArrayList<>();
 
     public Etiqueta() {
+    }
+
+    public Etiqueta(String nombre, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
+        this.nombre = nombre;
+        this.createdDate = createdDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public Long getId() {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.example.proyectomaja.dao.ExpertDAO;
 import com.example.proyectomaja.domain.Expert;
 import com.example.proyectomaja.repository.ExpertRepository;
+import com.example.proyectomaja.services.impl.ExpertServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
@@ -44,9 +45,9 @@ class ExpertServiceImplTest {
         expert.setNif("123456789v");
         expert.setEmail("jv@dominio.com");
         expert.setNif("12345566v");
-        expertService.createExpert(expert);
+        expertService.save(expert);
         assertNotNull(expert.getId());
-        Optional<Expert> findExpert = (expertService.findOne(expert.getId()));
+        Expert findExpert = (expertService.findById(expert.getId()));
 
 
     }

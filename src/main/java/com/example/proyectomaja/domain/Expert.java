@@ -2,6 +2,7 @@ package com.example.proyectomaja.domain;
 
 import com.example.proyectomaja.domain.validation.NifValidator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Type;
@@ -37,8 +38,7 @@ public class Expert implements Serializable {
 
 
     @ApiModelProperty("Estado tipo Enum enum: VALIDADO, PENDIENTE, DESCARTADO ")
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private String estado;
     @ApiModelProperty("Formtato texto")
     private String motivo;
     @ApiModelProperty("Formato booleano: true = yes;false=no")
@@ -95,18 +95,27 @@ public class Expert implements Serializable {
 
 
     @ApiModelProperty("Entidad relacionada many to many etiquetas")
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(
-            name = "expert_etiqueta",
-            joinColumns = {@JoinColumn(name="expert_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name="etiqueta_id", referencedColumnName = "id")}
+            name = "expert_tag",
+            joinColumns = {@JoinColumn(name = "expert_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
+    @JsonIgnoreProperties("experts")
     private List<Etiqueta> etiquetas = new ArrayList<>();
 
     /**
      * Constructor Empty
      */
     public Expert() {
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Long getId() {
@@ -140,6 +149,29 @@ public class Expert implements Serializable {
 
     }
 
+    public Expert(String nombre, String nif, String estado, String motivo, Boolean disponibilidad, String modalidad, Boolean autonomo, String telefono, String email, String ciudad, String direccion, String linkedIn, Double porcentaje, Double precio, Double puntuacion, String imageUrl, String cv, String origen, String observaciones, Instant createdDate, Instant lastModifiedDate) {
+        this.nombre = nombre;
+        this.nif = nif;
+        this.estado = estado;
+        this.motivo = motivo;
+        this.disponibilidad = disponibilidad;
+        this.modalidad = modalidad;
+        this.autonomo = autonomo;
+        this.telefono = telefono;
+        this.email = email;
+        this.ciudad = ciudad;
+        this.direccion = direccion;
+        LinkedIn = linkedIn;
+        this.porcentaje = porcentaje;
+        this.precio = precio;
+        this.puntuacion = puntuacion;
+        this.imageUrl = imageUrl;
+        this.cv = cv;
+        this.origen = origen;
+        this.observaciones = observaciones;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
 
     public Instant getCreatedDate() {
         return createdDate;
@@ -157,13 +189,7 @@ public class Expert implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public Estado getEstado() {
-        return estado;
-    }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
 
     public String getMotivo() {
         return motivo;
