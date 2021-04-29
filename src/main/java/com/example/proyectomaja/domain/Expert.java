@@ -41,9 +41,9 @@ public class Expert implements Serializable {
     private String estado;
     @ApiModelProperty("Formtato texto")
     private String motivo;
-    @ApiModelProperty("Formato booleano: true = yes;false=no")
-    @Type(type="yes_no")
-    private Boolean disponibilidad;
+    @ApiModelProperty("Seleccion Mañana, Tarde , Otros")
+
+    private String disponibilidad;
     @ApiModelProperty("Formtato texto")
     private String modalidad;
     @ApiModelProperty("Formato booleano: true = yes;false=no")
@@ -149,7 +149,7 @@ public class Expert implements Serializable {
 
     }
 
-    public Expert(String nombre, String nif, String estado, String motivo, Boolean disponibilidad, String modalidad, Boolean autonomo, String telefono, String email, String ciudad, String direccion, String linkedIn, Double porcentaje, Double precio, Double puntuacion, String imageUrl, String cv, String origen, String observaciones, Instant createdDate, Instant lastModifiedDate) {
+    public Expert(String nombre, String nif, String estado, String motivo, String disponibilidad, String modalidad, Boolean autonomo, String telefono, String email, String ciudad, String direccion, String linkedIn, Double porcentaje, Double precio, Double puntuacion, String imageUrl, String cv, String origen, String observaciones, Instant createdDate, Instant lastModifiedDate) {
         this.nombre = nombre;
         this.nif = nif;
         this.estado = estado;
@@ -199,11 +199,11 @@ public class Expert implements Serializable {
         this.motivo = motivo;
     }
 
-    public Boolean getDisponibilidad() {
+    public String getDisponibilidad() {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(Boolean disponibilidad) {
+    public void setDisponibilidad(String disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
 
@@ -354,26 +354,5 @@ public class Expert implements Serializable {
 //    }
 
 
-    @Override
-    public String toString() {
-        return "Expert{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", nif='" + nif + '\'' +
-                ", estado=" + estado +
-                ", motivo='" + motivo + '\'' +
-                ", disponibilidad=" + disponibilidad +
-                ", modalidad='" + modalidad + '\'' +
-                ", autonomo=" + autonomo +
-                ", telefono='" + telefono + '\'' +
-                ", email='" + email + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", LinkedIn='" + LinkedIn + '\'' +
-                ", porcentaje=" + porcentaje +
-                ", precio=" + precio +
-                ", puntuacion=" + puntuacion +
-                ", origen='" + origen + '\'' +
-                ", observaciones='" + observaciones + '\'' +
-                '}';
-    }
+
 }
