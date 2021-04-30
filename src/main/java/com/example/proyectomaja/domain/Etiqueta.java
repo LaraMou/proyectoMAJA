@@ -107,21 +107,6 @@ public class Etiqueta {
     public void setExperts(List<Expert> experts) {
         this.experts = experts;
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Etiqueta)) return false;
-//        Etiqueta etiqueta = (Etiqueta) o;
-//        return nombre.equals(etiqueta.nombre);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(nombre);
-//    }
-
-
     @Override
     public String toString() {
         return "Etiqueta{" +

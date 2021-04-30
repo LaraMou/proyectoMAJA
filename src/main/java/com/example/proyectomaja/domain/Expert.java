@@ -330,29 +330,5 @@ public class Expert implements Serializable {
         this.etiquetas = etiquetas;
     }
 
-//    /**
-//     * Method equals
-//     * @param o object to check equals
-//     * @return boolean to detect unique record
-//     */
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//        if (!(o instanceof Expert)) {
-//            return false;
-//        }
-//       // return id.equals(expert.id) && nombre.equals(expert.nombre);
-//        return id != null && id.equals(((Expert) o).id) && nombre.equals(((Expert) o).nombre);
-//
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, nombre);
-//    }
-
-
 
 }
