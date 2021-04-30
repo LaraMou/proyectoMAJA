@@ -39,11 +39,6 @@ public class EtiquetaController {
             return etiquetaService.findAllEtiquetas(page,limit);
         }
     }
-//    @GetMapping("/etiquetas")
-//    public Page<Etiqueta> index(@PathVariable Integer page) {
-//        Pageable pageable = PageRequest.of(page, 4);
-//        return etiquetaService.(pageable);
-//    }
 
 
     @GetMapping("/etiquetas/{id}")

@@ -4,7 +4,6 @@ package com.example.proyectomaja.controller;
 
 import com.example.proyectomaja.domain.Expert;
 import com.example.proyectomaja.services.ExpertService;
-import com.example.proyectomaja.services.IUploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.dao.DataAccessException;
@@ -28,8 +27,7 @@ import java.util.stream.Collectors;
 public class ExpertController {
     @Autowired
     private ExpertService expertoService;
-    @Autowired
-    private IUploadFileService uploadService;
+
 
     /**
      * Filtros de expertos pendiente de implmentar en angular

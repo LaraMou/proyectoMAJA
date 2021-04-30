@@ -34,9 +34,7 @@ public class EtiquetaServiceImpl implements EtiquetaService {
     public List<Etiqueta> findAllEtiquetas(Integer paginacion, Integer limite) {
 
         List <Etiqueta> etiquetas=etiquetaDAO.findAll(limite,paginacion);
-        System.out.println("0000000000000000000000");
-        System.out.println(etiquetas);
-        System.out.println("0000000000000000000000");
+
         if(!etiquetas.isEmpty()){
             ///Quitar Repetidos
             HashSet hs = new HashSet();
