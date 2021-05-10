@@ -1,6 +1,8 @@
 package com.example.proyectomaja.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,8 +14,10 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 20)
-    private String username;
+    @NotEmpty(message = "no puede estar vacio")
+    @Email(message = "no es una dirección de correo bien formada")
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(length = 60)
     private String password;
@@ -23,8 +27,6 @@ public class Usuario implements Serializable {
     private String nombre;
     private String apellido;
 
-    @Column(unique = true)
-    private String email;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"),
@@ -38,14 +40,6 @@ public class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
