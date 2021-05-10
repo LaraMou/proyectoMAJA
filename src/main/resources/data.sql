@@ -3,3 +3,9 @@ INSERT INTO `etiquetas` (`nombre`) values ('java');
 INSERT INTO `etiquetas` (`nombre`) values ('sql');
 INSERT into `expert_tag`  (`expert_id`, `tag_id`) VALUES (1,1);
 INSERT into `expert_tag`  (`expert_id`, `tag_id`) VALUES (1,2);
+
+
+-- password: imagina
+
+
+insert into user (username, email, password) values ('alan', 'alan@alan', '$2a$10$qINz45KQzkLHtzOovvgjn.y1SKh8zfR5Meyh61FHz3bvSlO4uez.O');

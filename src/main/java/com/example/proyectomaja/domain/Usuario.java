@@ -18,7 +18,8 @@ public class Usuario implements Serializable {
     @Email(message = "no es una dirección de correo bien formada")
     @Column(nullable = false, unique = true)
     private String email;
-
+    @Column(unique = true, length = 20)
+    private String username;
     @Column(length = 60)
     private String password;
 
@@ -34,12 +35,30 @@ public class Usuario implements Serializable {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
     private List<Role> roles;
 
+    public Usuario() {
+
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Usuario(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
