@@ -2,8 +2,7 @@ package com.example.proyectomaja.controller;
 
 
 import com.example.proyectomaja.domain.Etiqueta;
-import com.example.proyectomaja.domain.Etiqueta;
-import com.example.proyectomaja.domain.Expert;
+
 import com.example.proyectomaja.services.EtiquetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -19,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-//@CrossOrigin(origins = { "https://proyecto-final-monica-lara.vercel.app" },methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "https://proyecto-final-monica-lara.vercel.app" },methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+//@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api")
 public class EtiquetaController {
