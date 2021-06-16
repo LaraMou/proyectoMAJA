@@ -18,8 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = { "https://proyecto-final-monica-lara.vercel.app" },methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+//@CrossOrigin(origins = { "https://proyecto-final-monica-lara.vercel.app" },methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 //@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class EtiquetaController {
