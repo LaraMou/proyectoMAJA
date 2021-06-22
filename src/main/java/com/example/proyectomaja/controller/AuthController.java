@@ -40,7 +40,7 @@ public class AuthController<JwtUtils> {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginRequest loginRequest){
-        System.out.println("Login"+loginRequest.getEmail());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -54,7 +54,7 @@ public class AuthController<JwtUtils> {
 
     @PostMapping("/signup")
     public ResponseEntity<MessageResponse> registerUser(@RequestBody SignupRequest signUpRequest) {
-        System.out.println("Regis"+signUpRequest.getEmail());
+
 //        // Check 1: username
 //        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 //            return ResponseEntity
