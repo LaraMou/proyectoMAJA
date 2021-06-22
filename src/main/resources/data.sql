@@ -1,11 +1,11 @@
+INSERT INTO `expertos` (`id`, `contacto_linkedin`, `autonomo`, `created_date`, `contacto_ciudad`, `disponibilidad`, `contacto_email`, `estado`, `last_modified_date`, `modalidad`, `motivo`, `nif`, `nombre`, `observaciones`, `origen`, `condiciones_porcentaje`, `condiciones_precio_hora`, `puntuacion`, `contacto_telefono`) VALUES (NULL, NULL, 'Y', '2021-04-18 16:05:09.391887', NULL, 'mañanas', 'test@gmail.com', NULL, '2021-04-18 16:05:09.391887', NULL, NULL, '12345678V', 'ruben alavarez', NULL, NULL, NULL, NULL, NULL, '65217777');
+INSERT INTO `etiquetas` (`nombre`) values ('java');
+INSERT INTO `etiquetas` (`nombre`) values ('sql');
+INSERT into `expert_tag`  (`expert_id`, `tag_id`) VALUES (1,1);
+INSERT into `expert_tag`  (`expert_id`, `tag_id`) VALUES (1,2);
 
-/* Creamos algunos usuarios con sus roles */
-INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('monica','$2a$10$F4hSYLSgVLzUAmkal9q.DOMrgnSIrRaY1UaspNAlO1kEbJU5PWaP6',1, 'Monica', 'Lara Ocaña','mlara33.mnl@gmail.com');
-INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('admin','$2a$10$NfBFeiAzk7GZdkve6533SenZGDr9nsHt//O7iCOzinBW8Qtg6icQS',1, 'John', 'Dee','testaut@gmail.com');
 
-INSERT INTO `roles` (nombre) VALUES ('ROLE_USER');
-INSERT INTO `roles` (nombre) VALUES ('ROLE_ADMIN');
+-- password: imagina
 
-INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (1, 1);
-INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (2, 2);
-INSERT INTO `usuarios_roles` (usuario_id, role_id) VALUES (2, 1);
+
+insert into user (username, email, password) values ('mlocana@ingenia.es', 'mlocana@ingenia.es', '$2a$10$qINz45KQzkLHtzOovvgjn.y1SKh8zfR5Meyh61FHz3bvSlO4uez.O');

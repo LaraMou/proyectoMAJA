@@ -5,5 +5,6 @@ import com.example.proyectomaja.domain.Usuario;
 
 public interface IUsuarioService {
 
-	public Usuario findByUsername(String username);
+//	public Boolean findByEmailAndPassword(String email,String Password);
+public Usuario findByUsername(String username);
 }

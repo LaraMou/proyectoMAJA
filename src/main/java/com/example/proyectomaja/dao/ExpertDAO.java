@@ -2,16 +2,15 @@ package com.example.proyectomaja.dao;
 
 import com.example.proyectomaja.domain.Etiqueta;
 import com.example.proyectomaja.domain.Expert;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
 
-public interface ExpertDAO extends JpaRepository<Expert,Long> {
-    @Query("from Etiqueta ")
-    public List<Etiqueta> findAllEtiqueta();
+public interface ExpertDAO {
+    List<Expert> findAll( Integer paginacion,Integer limite);
+    List<Expert> findAllByNombre(String nombre, Integer paginacion,Integer limite);
+    List<Expert> findAllByEstado(String estado, Integer paginacion,Integer limite);
+    List<Expert> findAllByModalidad(String modalidad, Integer paginacion,Integer limite);
+    List<Etiqueta> findAllEtiqueta(String etiqueta, Integer paginacion,Integer limite);
 
 
 }

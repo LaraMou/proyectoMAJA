@@ -1,7 +1,9 @@
 package com.example.proyectomaja.services.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.example.proyectomaja.dao.UsuarioDAO;
+import com.example.proyectomaja.dao.IUsuarioDao;
 import com.example.proyectomaja.domain.Usuario;
 import com.example.proyectomaja.services.IUsuarioService;
 import org.slf4j.Logger;
@@ -16,8 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService implements IUsuarioService, UserDetailsService{
@@ -25,7 +25,7 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 	private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
 	@Autowired
-	private UsuarioDAO usuarioDao;
+	private IUsuarioDao usuarioDao;
 	
 	@Override
 	@Transactional(readOnly=true)

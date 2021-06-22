@@ -38,13 +38,12 @@ public class Expert implements Serializable {
 
 
     @ApiModelProperty("Estado tipo Enum enum: VALIDADO, PENDIENTE, DESCARTADO ")
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private String estado;
     @ApiModelProperty("Formtato texto")
     private String motivo;
-    @ApiModelProperty("Formato booleano: true = yes;false=no")
-    @Type(type="yes_no")
-    private Boolean disponibilidad;
+    @ApiModelProperty("Seleccion Mañana, Tarde , Otros")
+
+    private String disponibilidad;
     @ApiModelProperty("Formtato texto")
     private String modalidad;
     @ApiModelProperty("Formato booleano: true = yes;false=no")
@@ -95,8 +94,14 @@ public class Expert implements Serializable {
     private Instant lastModifiedDate = Instant.now();
 
 
-    @JsonIgnoreProperties(value={"experto", "hibernateLazyInitializer", "handler"}, allowSetters=true)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "experto", cascade = CascadeType.ALL)
+    @ApiModelProperty("Entidad relacionada many to many etiquetas")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(
+            name = "expert_tag",
+            joinColumns = {@JoinColumn(name = "expert_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    @JsonIgnoreProperties("experts")
     private List<Etiqueta> etiquetas = new ArrayList<>();
 
     /**
@@ -105,10 +110,12 @@ public class Expert implements Serializable {
     public Expert() {
     }
 
-    public Expert(String nombre, Estado estado, List<Etiqueta> etiquetas) {
-        this.nombre = nombre;
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
         this.estado = estado;
-        this.etiquetas = etiquetas;
     }
 
     public Long getId() {
@@ -142,6 +149,29 @@ public class Expert implements Serializable {
 
     }
 
+    public Expert(String nombre, String nif, String estado, String motivo, String disponibilidad, String modalidad, Boolean autonomo, String telefono, String email, String ciudad, String direccion, String linkedIn, Double porcentaje, Double precio, Double puntuacion, String imageUrl, String cv, String origen, String observaciones, Instant createdDate, Instant lastModifiedDate) {
+        this.nombre = nombre;
+        this.nif = nif;
+        this.estado = estado;
+        this.motivo = motivo;
+        this.disponibilidad = disponibilidad;
+        this.modalidad = modalidad;
+        this.autonomo = autonomo;
+        this.telefono = telefono;
+        this.email = email;
+        this.ciudad = ciudad;
+        this.direccion = direccion;
+        LinkedIn = linkedIn;
+        this.porcentaje = porcentaje;
+        this.precio = precio;
+        this.puntuacion = puntuacion;
+        this.imageUrl = imageUrl;
+        this.cv = cv;
+        this.origen = origen;
+        this.observaciones = observaciones;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
 
     public Instant getCreatedDate() {
         return createdDate;
@@ -159,13 +189,7 @@ public class Expert implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public Estado getEstado() {
-        return estado;
-    }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
 
     public String getMotivo() {
         return motivo;
@@ -175,11 +199,11 @@ public class Expert implements Serializable {
         this.motivo = motivo;
     }
 
-    public Boolean getDisponibilidad() {
+    public String getDisponibilidad() {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(Boolean disponibilidad) {
+    public void setDisponibilidad(String disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
 
@@ -305,4 +329,6 @@ public class Expert implements Serializable {
     public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
     }
+
+
 }

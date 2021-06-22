@@ -1,11 +1,11 @@
 package com.example.proyectomaja.dao;
 
 import com.example.proyectomaja.domain.Etiqueta;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface EtiquetaDAO extends CrudRepository<Etiqueta,Long> {
+public interface EtiquetaDAO {
+    List<Etiqueta> findAllByNombre(String nombre, Integer paginacion, Integer limite);
+    List<Etiqueta> findAll(Integer paginacion, Integer limite);
 
 }

@@ -1,10 +1,12 @@
 package com.example.proyectomaja.services.impl;
 
 import com.example.proyectomaja.dao.EtiquetaDAO;
+
 import com.example.proyectomaja.dao.ExpertDAO;
+
 import com.example.proyectomaja.domain.Etiqueta;
 import com.example.proyectomaja.domain.Expert;
-
+import com.example.proyectomaja.repository.ExpertRepository;
 import com.example.proyectomaja.services.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,57 +21,63 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Autowired
     private ExpertDAO expertDAO;
+
+    @Autowired
+    private ExpertRepository expertRepository;
+
     @Autowired
     private EtiquetaDAO etiquetaDAO;
 
+
+
     @Override
-    @Transactional(readOnly = true)
-    public List<Expert> findAll() {
-        return expertDAO.findAll();
+    public List<Expert> findAll(Integer paginacion, Integer limite) {
+        return expertDAO.findAll(paginacion, limite);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<Expert> findAll(Pageable pageable) {
-        return expertDAO.findAll(pageable);
+    public List<Expert> findAllByNombre(String nombre, Integer paginacion, Integer limite) {
+        return expertDAO.findAllByNombre(nombre,paginacion,limite);
     }
+
+    @Override
+    public List<Expert> findAllByEstado(String estado, Integer paginacion, Integer limite) {
+       return expertDAO.findAllByEstado(estado,paginacion,limite);
+    }
+
+    @Override
+    public List<Expert> findAllByModalidad(String modalidad, Integer paginacion, Integer limite) {
+        return expertDAO.findAllByModalidad(modalidad,paginacion,limite);
+    }
+
 
     @Override
     public Expert findById(Long id) {
-        return expertDAO.findById(id).orElse(null);
+        return expertRepository.findById(id).orElse(null);
     }
 
     @Override
     public Expert save(Expert experto) {
-        return expertDAO.save(experto);
+        return expertRepository.save(experto);
     }
 
     @Override
     public void delete(Long id) {
-        expertDAO.deleteById(id);
+        expertRepository.deleteById(id);
 
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Etiqueta> findAllEtiquetas() {
-        return expertDAO.findAllEtiqueta();
+    public List<Etiqueta> findAllEtiqueta(String etiqueta, Integer paginacion, Integer limite) {
+        return expertDAO.findAllEtiqueta(etiqueta,paginacion,limite);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Etiqueta findEtiquetaById(Long id) {
-        return etiquetaDAO.findById(id).orElse(null);
-    }
 
-    @Override
-    public Etiqueta saveEtiqueta(Etiqueta etiqueta) {
-        return etiquetaDAO.save(etiqueta);
-    }
 
-    @Override
-    public void deleteEtiquetaById(Long id) {
-        etiquetaDAO.deleteById(id);
-
-    }
+//    @Override
+//    public List<Etiqueta> findAllEtiqueta() {
+//        return expertRepository.findAllEtiqueta();
+//    }
+//
+//
 }
